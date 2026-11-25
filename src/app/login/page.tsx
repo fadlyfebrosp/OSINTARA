@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Shield, Radar } from "lucide-react";
 
@@ -11,15 +11,20 @@ export default function LoginPage() {
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
 
-  async function submit(e: React.FormEvent) {
+  async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault(); setBusy(true); setMessage("");
-    const result = mode === "login"
-      ? await supabase.auth.signInWithPassword({ email, password })
-      : await supabase.auth.signUp({ email, password, options: { emailRedirectTo: `${location.origin}/auth/callback` } });
-    setBusy(false);
-    if (result.error) setMessage(result.error.message);
-    else if (mode === "register") setMessage("Pendaftaran berhasil. Periksa email untuk verifikasi jika diminta.");
-    else location.href = "/dashboard";
+    try {
+      const result = mode === "login"
+        ? await supabase.auth.signInWithPassword({ email, password })
+        : await supabase.auth.signUp({ email, password, options: { emailRedirectTo: `${location.origin}/auth/callback` } });
+      if (result.error) setMessage(result.error.message);
+      else if (mode === "register") setMessage("Pendaftaran berhasil. Periksa email untuk verifikasi jika diminta.");
+      else location.href = "/dashboard";
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Tidak dapat terhubung ke layanan autentikasi.");
+    } finally {
+      setBusy(false);
+    }
   }
 
   return <main className="auth-wrap"><section className="auth-card">

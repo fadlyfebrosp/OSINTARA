@@ -1,5 +1,3 @@
 import type { NextConfig } from "next";
-const nextConfig: NextConfig = {
-  serverExternalPackages: ["adm-zip", "exif-parser"]
-};
+const nextConfig: NextConfig = {};
 export default nextConfig;

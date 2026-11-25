@@ -11,8 +11,6 @@ import {
   Radar,
   History,
   ShieldCheck,
-  FileImage,
-  PackageSearch,
 } from "lucide-react";
 
 const modules = [
@@ -265,7 +263,9 @@ export default function Dashboard({
                     <b>{s.module.toUpperCase()}</b>
                     <span>{s.query_value}</span>
                   </div>
-                  <time>{new Date(s.created_at).toLocaleString("id-ID")}</time>
+                  <time dateTime={s.created_at}>
+                    {new Date(s.created_at).toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })}
+                  </time>
                   <button onClick={() => setResult(s.result_json)}>VIEW</button>
                 </div>
               ))
