@@ -1,0 +1,17 @@
+OSINTARA — DEPLOY CHECKLIST
+
+[ ] Buat project Supabase
+[ ] Jalankan supabase/schema.sql melalui SQL Editor
+[ ] Atur Authentication Site URL dan Redirect URLs
+[ ] Salin .env.example menjadi .env.local
+[ ] Isi NEXT_PUBLIC_SUPABASE_URL
+[ ] Isi NEXT_PUBLIC_SUPABASE_ANON_KEY
+[ ] npm install
+[ ] npm run dev
+[ ] Push source ke GitHub
+[ ] Import repository ke Vercel
+[ ] Tambahkan environment variables di Vercel
+[ ] Deploy dan uji registrasi/login
+[ ] Uji RLS: akun A tidak boleh membaca riwayat akun B
+[ ] Aktifkan CAPTCHA/rate limit sebelum aplikasi dibuka untuk umum
+[ ] Jangan pernah expose service_role key
